@@ -1,0 +1,5 @@
+name: 'build-blog'
+description: 'GitHub Action for build blog'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

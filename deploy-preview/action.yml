@@ -1,0 +1,37 @@
+name: 'deploy-preview'
+description: 'GitHub Action for deploying preview site'
+inputs:
+  token:
+    description: 'GitHub token'
+    default: ${{ github.token }}
+    required: true
+  azure-storage-connection-string:
+    description: 'Azure Storage connection string'
+    required: true
+  preview-base-url:
+    description: 'Base URL of preview site (ex. https://contosoblobaccount.z22.web.core.windows.net/)'
+    required: true
+  branch-name:
+    default: ${{ github.event.client_payload.pull_request.head.label }}
+    required: false
+  pr-url:
+    default: ${{ github.event.client_payload.pull_request.html_url }}
+    required: false
+  repo-owner:
+    default: ${{ github.event.repository.owner.login }}
+    required: false
+  repo-name:
+    default: ${{ github.event.repository.name }}
+    required: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    GITHUB_TOKEN: ${{ inputs.token }}
+    GITHUB_PERSONAL_ACCESS_TOKEN: ${{ inputs.token }}
+    PREVIEW_BASE_URL: ${{ inputs.preview-base-url }}
+    CIRCLE_BRANCH: ${{ inputs.branch-name }}
+    CIRCLE_PULL_REQUEST: ${{ inputs.pr-url }}
+    CIRCLE_PROJECT_USERNAME: ${{ inputs.repo-owner }}
+    CIRCLE_PROJECT_REPONAME: ${{ inputs.repo-name }}
+    AZURE_STORAGE_CONNECTION_STRING: ${{ inputs.azure-storage-connection-string }}

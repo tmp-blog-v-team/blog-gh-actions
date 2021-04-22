@@ -1,0 +1,26 @@
+name: 'delete-preview'
+description: 'GitHub Action for deleting preview site'
+inputs:
+  token:
+    description: 'GitHub token'
+    default: ${{ github.token }}
+    required: true
+  azure-storage-connection-string:
+    description: 'Azure Storage connection string'
+    required: true
+  repo-owner:
+    default: ${{ github.event.repository.owner.login }}
+    required: false
+  repo-name:
+    default: ${{ github.event.repository.name }}
+    required: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    GITHUB_TOKEN: ${{ inputs.token }}
+    GITHUB_PERSONAL_ACCESS_TOKEN: ${{ inputs.token }}
+    CIRCLE_BRANCH: ${{ inputs.branch-name }}
+    CIRCLE_PROJECT_USERNAME: ${{ inputs.repo-owner }}
+    CIRCLE_PROJECT_REPONAME: ${{ inputs.repo-name }}
+    AZURE_STORAGE_CONNECTION_STRING: ${{ inputs.azure-storage-connection-string }}
