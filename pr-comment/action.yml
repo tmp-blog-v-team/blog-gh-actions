@@ -2,8 +2,8 @@ name: 'pr-comment'
 description: 'GitHub Action for posting bot comment to pull request'
 inputs:
   token:
-    description: 'GitHub token'
     default: ${{ github.token }}
+    description: 'GitHub token'
     required: true
 runs:
   using: 'node12'
