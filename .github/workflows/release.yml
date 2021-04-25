@@ -14,10 +14,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            # Generate tag from release ref
+            // Generate tag from release ref
             const majorTag = context.ref.split('/')[2].split('.')[0];
 
-            # Delete current tag
+            // Delete current tag
             try {
                 await github.git.deleteRef({
                   owner: context.repo.owner,
@@ -28,7 +28,7 @@ jobs:
               console.log("The tag doesn't exist yet: " + e)
             }
 
-            # Create tag with new release
+            // Create tag with new release
             await github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
