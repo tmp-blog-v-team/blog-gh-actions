@@ -2,7 +2,6 @@
 
 # Initialize repository
 cp -r /blog/* .
-git submodule update -i
 
 ret=$?
 if [ $ret != 0 ]; then
