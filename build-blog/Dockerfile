@@ -1,4 +1,4 @@
-FROM ghcr.io/jpaztech/blog-build-tools:latest
+FROM ghcr.io/cssjpn/blog-build-tools:latest
 
 ADD script.sh /
 
