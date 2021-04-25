@@ -2,11 +2,6 @@
 
 # Initialize repository
 cp -r /blog/* .
-git submodule update -i
-
-# TODO: move to blog-build-tools
-rm -f gulpfile.js
-curl -o gulpfile.js https://raw.githubusercontent.com/jpazureid/blog/master/gulpfile.js
 
 ret=$?
 if [ $ret != 0 ]; then

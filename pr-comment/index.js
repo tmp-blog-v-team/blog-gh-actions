@@ -12,13 +12,14 @@ async function run() {
       pull_number: context.issue.number
     });
 
+    const branch = `pr-${pull.number}`;
     const msg = `🥳 Thanks for your contribution!
 <details>
 Hi reviewers, could you review this PR? To checkout this PR and run preview server locally,
 
 \`\`\`shell
-git fetch origin pull/${pull.number}/head:${pull.head.ref}
-git checkout ${pull.head.ref}
+git fetch origin pull/${pull.number}/head:${branch}
+git checkout ${branch}
 git submodule update -i
 docker-compose up
 \`\`\`

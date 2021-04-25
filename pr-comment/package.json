@@ -1,7 +1,7 @@
 {
-  "name": "pr-first-comment",
+  "name": "pr-comment",
   "version": "1.0.0",
-  "description": "GitHub Action for posting first comment to pull request.",
+  "description": "GitHub Action for posting bot comment to pull request.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

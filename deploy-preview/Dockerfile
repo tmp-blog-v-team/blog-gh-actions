@@ -1,8 +1,5 @@
-FROM ghcr.io/jpaztech/blog-build-tools:latest
-
-RUN apt update && apt install -y curl
+FROM ghcr.io/cssjpn/blog-build-tools:latest
 
 ADD script.sh /
-ADD gulpfile.js /
 
 CMD "/script.sh"
