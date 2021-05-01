@@ -25,7 +25,8 @@ inputs:
     required: false
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'docker://ghcr.io/cssjpn/blog-build-tools:latest'
+  args: ["npm", "run", "uploadPreview"]
   env:
     GITHUB_TOKEN: ${{ inputs.token }}
     GITHUB_PERSONAL_ACCESS_TOKEN: ${{ inputs.token }}
