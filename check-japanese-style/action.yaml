@@ -1,0 +1,6 @@
+name: 'build-blog'
+description: 'GitHub Action for checking MS japanese style guide'
+runs:
+  using: 'docker'
+  image: 'docker://ghcr.io/cssjpn/blog-build-tools:latest'
+  args: ["npm", "test"]
