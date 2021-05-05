@@ -2,4 +2,5 @@ name: 'build-blog'
 description: 'GitHub Action for build blog'
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'docker://ghcr.io/cssjpn/blog-build-tools:latest'
+  args: ["npm", "run", "build"]
