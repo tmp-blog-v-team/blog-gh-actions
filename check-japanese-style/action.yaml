@@ -1,4 +1,4 @@
-name: 'build-blog'
+name: 'check-japanese-style'
 description: 'GitHub Action for checking MS japanese style guide'
 runs:
   using: 'docker'
