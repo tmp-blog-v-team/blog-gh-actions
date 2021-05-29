@@ -2,9 +2,8 @@
 
 GitHub Actions for [Microsoft CSS Japan](https://aka.ms/JSupport) blog pages.
 
-## Actions
+## End-to-End Sample Workflows
 
-* [pr-comment](./pr-comment): posting bot comment to pull request
-* [deploy-preview](./deploy-preview): deploying preview site
-* [delete-preview](./delete-preview): deleting preview site
-* [build-blog](./build-blog): building blog
+* [Build blog and Publish to GitHub Pages](./docs/upload-gh-pages.md)
+* [Deploy preview site for Pull Requests](./docs/deploy-preview.md)
+
