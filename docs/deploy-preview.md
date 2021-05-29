@@ -5,7 +5,9 @@ Preview sites are served from [Static website hosting in Azure Storage](https://
 The workflow also comments to the pull request an example of the commands for preview.
 Its now even easier to check build results in reviewing process before publish the changes.
 
-![https://github.com/jpaztech/blog/pull/146](./images/deploy-preview01.png)
+<a href="https://github.com/jpaztech/blog/pull/146">
+<img src="./images/deploy-preview01.png" width="600" />
+</a>
 
 ## Prerequisites
 
