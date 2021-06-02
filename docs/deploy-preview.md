@@ -25,15 +25,15 @@ Its now even easier to check build results in reviewing process before publish t
 
 3. Select **New GitHub App**.
 
-    ![](./images/deploy-preview02.png)
+    <img src="./images/deploy-preview02.png" width="600" />
 
 4. Enter **GitHub App name** and **Homepage URL**.
 
-    ![](./images/deploy-preview03.png)
+    <img src="./images/deploy-preview03.png" width="600" />
 
 5. Remove check from Webhook **Active**.
 
-    ![](./images/deploy-preview04.png)
+    <img src="./images/deploy-preview04.png" width="500" />
 
 6. Set repository permissions.
 
@@ -43,25 +43,25 @@ Its now even easier to check build results in reviewing process before publish t
 
 7. Select **Only on this account**. Select **Create GitHub App**.
 
-    ![](./images/deploy-preview05.png)
+    <img src="./images/deploy-preview05.png" width="500" />
 
 8. The **AppID** appeares in the **General** page of the GitHub App.
 
-    ![](./images/deploy-preview06.png)
+    <img src="./images/deploy-preview06.png" width="600" />
 
 9. Move to **Private keys** section. Select **Generate a private key**.
 
-    ![](./images/deploy-preview07.png)
+    <img src="./images/deploy-preview07.png" width="600" />
 
 ### Install GitHub App to your organization
 
 1. Go to **Install App**. Select **Install**.
 
-    ![](./images/deploy-preview08.png)
+    <img src="./images/deploy-preview08.png" width="600" />
 
 2. Enable **Only select repositories** option and select your blog repository. Select **Install**.
 
-    ![](./images/deploy-preview09.png)
+    <img src="./images/deploy-preview09.png" width="500" />
 
 ### Configure the GitHub secrets
 
@@ -75,7 +75,7 @@ Its now even easier to check build results in reviewing process before publish t
     * `PRIVATE_KEY`: Private key of created GitHub App
     * `AZURE_STORAGE_CONNECTION_STRING`: Connection string for Azure Blob Storage
 
-    ![](./images/deploy-preview10.png)
+    <img src="./images/deploy-preview10.png" width="600" />
 
 ## Workflows
 
