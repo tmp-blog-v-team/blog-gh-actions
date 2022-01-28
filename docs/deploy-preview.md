@@ -40,6 +40,7 @@ Its now even easier to check build results in reviewing process before publish t
     * Contents: `Read & write`
     * Metadata: `Read-only`
     * Pull requests: `Read-only`
+    * Secrets: `Read & write`
 
 7. Select **Only on this account**. Select **Create GitHub App**.
 
