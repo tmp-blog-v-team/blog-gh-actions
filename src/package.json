@@ -1,0 +1,19 @@
+{
+  "name": "update-secrets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx ncc build jpcssblogdev-token.js --license licenses.txt -o ../jpcssblogdev-token/ && npx ncc build check-linked-account.js --license licenses.txt -o ../check-linked-account/ "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "axios": "^0.25.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.33.1"
+  }
+}

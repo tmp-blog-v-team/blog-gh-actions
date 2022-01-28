@@ -1,0 +1,8 @@
+name: 'get-jpcssblogdev-token'
+description: 'GitHub Action for acquiring jpcssblog dev token using GitHub id_token.'
+outputs:
+  token:
+    description: 'secret token to call jpcssblogdev api'  
+runs:
+  using: 'node12'
+  main: 'index.js'

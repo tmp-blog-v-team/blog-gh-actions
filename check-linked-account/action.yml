@@ -1,0 +1,20 @@
+name: 'check-linked-account'
+description: 'GitHub Action for checking github account is microsoft linked or not.'
+inputs:
+  token:
+    description: 'The token any one of jpcssblogdev token, GitHub id_token, AAD access token'
+    required: true
+  githubId:
+    description: 'GitHub Account Name'
+    default: ${{ github.event.pull_request.head.repo.owner.login }}
+    required: true
+  allowExternalUser:
+    description: 'allow non FTE account like v-username'
+    default: 'allow'
+    required: false
+outputs:
+  isLinked:
+    description: 'is Microsoft linked account'  
+runs:
+  using: 'node12'
+  main: 'index.js'
