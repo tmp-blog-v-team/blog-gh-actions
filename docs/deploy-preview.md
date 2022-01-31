@@ -191,11 +191,135 @@ jobs:
 
 Note: GitHub automatically creates a `GITHUB_TOKEN` secret to use in your workflow. [Authentication in a workflow - GitHub Docs](https://docs.github.com/en/actions/reference/authentication-in-a-workflow)
 
+4. update-credential.yml and pull-request-target.yml for enable auto deploy task.
+
+If you would like to deploy preview site automatically, please update pull-request-target.yml as below. 
+
+deploy-preview-if-pr-owner-is-linked-account job call internal api to validate PR owner is Microsoft linked account or not. If PR is created by Microsoft linked account, then `Deploy preview site` step will be invoked. 
+
+```yaml
+# File: {your-blog-repo}/.github/workflows/pull-request-target.yml
+
+name: pull-request-target
+
+on:
+  pull_request_target:
+    types: [opened, reopened, edited, closed] # added edited type.
+
+jobs:
+  pr-comment:
+    runs-on: ubuntu-latest
+    if:
+      github.event_name == 'pull_request_target' &&
+      (github.event.action == 'opened' || github.event.action == 'reopened')
+    steps:
+    - name: pr-comment
+      uses: cssjpn/blog-gh-actions/pr-comment@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+  # If you want to deploy preview site automatically
+  deploy-preview-if-pr-owner-is-linked-account:
+    runs-on: ubuntu-latest
+    if:
+      github.event_name == 'pull_request_target' &&
+      (github.event.action == 'opened' || github.event.action == 'reopened' || github.event.action == 'edited')
+    steps:
+      - name: check linked account
+        # skip checking if pr is created by repository owner
+        if: github.event.pull_request.head.repo.owner.login != github.event.repository.owner.login
+        id: check_linked_account
+        uses: cssjpn/blog-gh-actions/check-linked-account@v1
+        with:
+          token: ${{ secrets.JPCSSBLOG_DEV_TOKEN }}
+          allowExternalUser: 'allow'
+
+      # Checks-out after passed the check
+      - uses: actions/checkout@v2
+        if:
+          steps.check_linked_account.outputs.isLinked == 'true' || 
+          github.event.pull_request.head.repo.owner.login == github.event.repository.owner.login
+        with:
+          ref: 'refs/pull/${{ github.event.number }}/merge'
+          submodules: true
+
+      - name: Deploy preview site
+        if:
+          steps.check_linked_account.outputs.isLinked == 'true' || 
+          github.event.pull_request.head.repo.owner.login == github.event.repository.owner.login
+        uses: cssjpn/blog-gh-actions/deploy-preview@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          azure-storage-connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+          preview-base-url: "https://{{ Your Static Web URL }}.z5.web.core.windows.net/" # need to update url.
+          branch-name: ${{ github.event.pull_request.head.label }}
+          pr-url: ${{ github.event.pull_request.html_url }}
+          repo-owner: ${{ github.event.repository.owner.login }}
+          repo-name: ${{ github.event.repository.name }}
+
+  delete-preview:
+    runs-on: ubuntu-latest
+    if:
+      github.event_name == 'pull_request_target' && github.event.action == 'closed'
+    steps:
+    - name: Delete preview site
+      uses: cssjpn/blog-gh-actions/delete-preview@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        azure-storage-connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+```
+
+You need to get access token before run check-linked-account action. The following action help you getting and storing access token to GitHub secrets using GitHub [ID Token](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect).
+
+**Make sure your GitHub Apps have write permission to GitHub Secrets.**
+
+```yml
+name: get jpcssblogdev token
+
+on:
+  schedule:
+    - cron: '0 0 1,15 * *'
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get JPCSSBlogDev Token
+        id: jpcssblogdev
+        uses: cssjpn/blog-gh-actions/jpcssblogdev-token@v1
+
+      - name: Generate GitHub token for writing secrets
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+
+      - name: Store a token to repository Secrets
+        env:
+          TOKEN: ${{ steps.jpcssblogdev.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          REPOSITORY: ${{ github.event.repository.full_name }}
+        run: |
+          gh secret set JPCSSBLOG_DEV_TOKEN --body "$TOKEN" -R "$REPOSITORY"  
+```
+
+Once you have added a workflow, you will need to run it manually only the first time. After that, secret will be updated on the 1st and 15th of every month.
+
+![](./images/deploy-preview11.png)
+
 ## Actions
 
 * [pr-comment](../pr-comment): posting bot comment to pull request
 * [deploy-preview](../deploy-preview): deploying preview site
 * [delete-preview](../delete-preview): deleting preview site
+* [check-linked-account](../check-linked-account): checking linked account
+* [jpcssblogdev-token](../jpcssblogdev-token): acquire token for checking-linked-account action
 
 ## Credits
 
