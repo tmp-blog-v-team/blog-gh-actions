@@ -191,7 +191,7 @@ jobs:
 
 Note: GitHub automatically creates a `GITHUB_TOKEN` secret to use in your workflow. [Authentication in a workflow - GitHub Docs](https://docs.github.com/en/actions/reference/authentication-in-a-workflow)
 
-4. update-credential.yml and pull-request-target.yml for enable auto deploy task.
+**4. update-credential.yml and pull-request-target.yml**: workflows for enable auto deploy task.
 
 If you would like to deploy preview site automatically, please update pull-request-target.yml as below. 
 
