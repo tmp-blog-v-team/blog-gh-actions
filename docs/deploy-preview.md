@@ -289,6 +289,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
       - name: Get JPCSSBlogDev Token
         id: jpcssblogdev
         uses: cssjpn/blog-gh-actions/jpcssblogdev-token@v1
