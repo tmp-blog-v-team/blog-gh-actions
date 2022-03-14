@@ -274,6 +274,8 @@ You need to get access token before run check-linked-account action. The followi
 **Make sure your GitHub Apps have write permission to GitHub Secrets.**
 
 ```yml
+# File: {your-blog-repo}/.github/workflows/update-credential.yml
+
 name: get jpcssblogdev token
 
 on:
