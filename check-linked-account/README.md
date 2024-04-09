@@ -1,4 +1,6 @@
-# jpcssblogdev-token
+# check-linked-account
+
+**This action has been deprecated. The API for checking linked account will be stop after May 9 2024**
 
 GitHub Action for checking github account is microsoft linked or not.
 
